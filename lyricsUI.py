@@ -32,10 +32,17 @@ class Application(Frame):
 
         self.lyricButton = Button(bottom, width=20, text = "Guess", command = self.makeGuess)
         self.lyricButton.pack(side = RIGHT)
+        
+        self.speak_button = Button(bottom, width=20, text="Speak", command = self.speak_lyric)
+        self.speak_button.pack(side = RIGHT)
 
         # Bind enter button to make a guess
         root.bind('<Return>', self.pressEnter)
-
+        
+    
+    def speak_lyric(self):
+        pass
+        
 
     # Handles pressing enter key instead of pressing button every time
     def pressEnter(self,event):
@@ -56,7 +63,7 @@ class Application(Frame):
             
         self.lyricsBox.insert(END, self.lyrics[self.lineNumber]) # Show user next line of the song
         self.entry.delete(0, END) # Clear text input field
-            
+    
     # Reset UI and get a new song
     def newSong(self):
         # Clear the UI
@@ -73,4 +80,5 @@ class Application(Frame):
             
 root = Tk()
 app = Application(master=root)
-app.mainloop()
+root.mainloop()
+root.destroy()
