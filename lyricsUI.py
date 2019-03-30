@@ -1,26 +1,7 @@
 import pylyrics3
 import random
-import tkinter
 from tkinter import *
-
-songs = [('Smash Mouth','All Star'),
-         ('Oasis','Wonderwall'),
-         ('John Lennon','Imagine'),
-         ('Eminem','Lose Yourself')]
-
-    
-def getRandomSong():
-    # Pick a random song
-    song = random.choice(songs)
-    artist = song[0]
-    title = song[1]
-
-    # Retrieve lyrics from lyrics wiki and split into list
-    string = pylyrics3.get_song_lyrics(artist, title)
-    lyrics = str.splitlines(string)
-
-    return artist, title, lyrics
-
+from my_lyrics import get_popular_song
 
 def lyricsUI():
     
@@ -32,7 +13,6 @@ def lyricsUI():
             self.pack()
             self.create_widgets()
 
-            #while True:
             self.newSong()
             
         def create_widgets(self):
@@ -57,10 +37,11 @@ def lyricsUI():
             root.bind('<Return>', self.pressEnter)
 
 
+        # Handles pressing enter key instead of pressing button every time
         def pressEnter(self,event):
             self.makeGuess()
 
-            
+
         def makeGuess(self):
             
             if self.entry.get().lower() == self.title.lower():
@@ -69,13 +50,15 @@ def lyricsUI():
             
             self.i += 1
             self.listbox.insert(END, self.lyrics[self.i])
+            self.entry.delete(0, END)
             
-        
+        # Reset UI and get a new song
         def newSong(self):
             self.listbox.delete(0,END)
             self.entry.delete(0,END)
             
-            self.artist, self.title, self.lyrics = getRandomSong() 
+            self.lyrics, self.artist, self.title = get_popular_song()
+            print(self.title)
 
             self.i = 0
 
