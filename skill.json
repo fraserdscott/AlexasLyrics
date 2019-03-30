@@ -1,0 +1,73 @@
+{
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "lyrics game",
+            "intents": [
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.PauseIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StartOverIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.NavigateHomeIntent",
+                    "samples": []
+                },
+                {
+                    "name": "QuizIntent",
+                    "slots": [],
+                    "samples": [
+                        "give me a song",
+                        "start a game",
+                        "start a quiz",
+                        "start a quiz game",
+                        "and start a quiz",
+                        "and quiz me",
+                        "for a quiz",
+                        "a quiz"
+                    ]
+                },
+                {
+                    "name": "AnswerIntent",
+                    "slots": [
+                        {
+                            "name": "Song",
+                            "type": "AMAZON.MusicRecording"
+                        }
+                    ],
+                    "samples": [
+                        "the name of the song is {Song}",
+                        "it's {Song}",
+                        "{Song}"
+                    ]
+                },
+                {
+                    "name": "HintIntent",
+                    "slots": [],
+                    "samples": [
+                        "give me another line",
+                        "another line",
+                        "give me a hint",
+                        "hint",
+                        "give hint"
+                    ]
+                }
+            ],
+            "types": []
+        }
+    }
+}
