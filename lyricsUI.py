@@ -26,10 +26,10 @@ class Application(Frame):
         bottom.pack(fill=BOTH, expand=True)
             
         self.entry = Entry(bottom, width=80)
-        self.entry.pack(side = LEFT)
+        self.entry.pack(side=LEFT)
 
-        self.lyricButton = Button(bottom, width=20, text = "Guess", command = self.make_guess)
-        self.lyricButton.pack(side = RIGHT)
+        self.lyricButton = Button(bottom, width=20, text="Guess", command=self.make_guess)
+        self.lyricButton.pack(side=RIGHT)
 
         # Bind enter button to make a guess
         root.bind('<Return>', self.press_enter)
@@ -48,7 +48,7 @@ class Application(Frame):
 
         # Otherwise the user has guessed wrong 
         self.lineNumber += 1
-        if self.lineNumber==len(self.lyrics):
+        if self.lineNumber == len(self.lyrics):
             self.new_song()
             
         self.lyricsBox.insert(END, self.lyrics[self.lineNumber]) # Show user next line of the song

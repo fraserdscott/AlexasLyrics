@@ -27,10 +27,16 @@ def get_popular_song():
     lyrics = pylyrics3.get_song_lyrics(artist, song)
     if lyrics is None:
         return get_popular_song()
-    return lyrics.split('\n'), artist, song
+    lyrics = lyrics.split('\n')
+    formated_lyrics = []
+    for lyric in lyrics:
+        formated_lyrics.append(lyric.strip())
+
+    return formated_lyrics, artist, song
 
 
 l, a, s = get_popular_song()
+print(l)
 
 
 
