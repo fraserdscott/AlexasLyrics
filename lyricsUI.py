@@ -1,5 +1,6 @@
 from tkinter import *
 from my_lyrics import get_popular_song
+import pyttsx3
 
 
 class Application(Frame):
@@ -28,11 +29,31 @@ class Application(Frame):
         self.entry = Entry(bottom, width=80)
         self.entry.pack(side=LEFT)
 
-        self.lyricButton = Button(bottom, width=20, text="Guess", command=self.make_guess)
-        self.lyricButton.pack(side=RIGHT)
+        self.lyricButton = Button(bottom, width=20, text = "Guess", command = self.make_guess)
+        self.lyricButton.pack(side = RIGHT)
+        
+        self.speak_button = Button(bottom, width=20, text="Speak", command = self.speak_lyric)
+        self.speak_button.pack(side = RIGHT)
 
+
+        self.QUIT = Button(self)
+        self.QUIT["text"] = "QUIT"
+        self.QUIT["fg"]   = "red"
+        self.QUIT["command"] =  self.quit
+
+        self.QUIT.pack({"side": "left"})
+        
         # Bind enter button to make a guess
         root.bind('<Return>', self.press_enter)
+        
+    
+    def speak_lyric(self):
+        engine = pyttsx3.init();
+        speak_string = self.lyrics[self.lineNumber]
+        engine.say(speak_string);
+        engine.runAndWait() ;
+        
+        
 
     # Handles pressing enter key instead of pressing button every time
     def press_enter(self, event):
@@ -53,7 +74,7 @@ class Application(Frame):
             
         self.lyricsBox.insert(END, self.lyrics[self.lineNumber]) # Show user next line of the song
         self.entry.delete(0, END) # Clear text input field
-            
+    
     # Reset UI and get a new song
     def new_song(self):
         # Clear the UI
@@ -70,4 +91,5 @@ class Application(Frame):
             
 root = Tk()
 app = Application(master=root)
-app.mainloop()
+root.mainloop()
+root.destroy()
