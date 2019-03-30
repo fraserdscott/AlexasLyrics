@@ -28,11 +28,11 @@ def get_popular_song():
     if lyrics is None:
         return get_popular_song()
     lyrics = lyrics.split('\n')
-    formated_lyrics = []
+    formatted_lyrics = []
     for lyric in lyrics:
-        formated_lyrics.append(lyric.strip())
+        formatted_lyrics.append(lyric.strip())
 
-    return formated_lyrics, artist, song
+    return formatted_lyrics, artist, song
 
 
 l, a, s = get_popular_song()

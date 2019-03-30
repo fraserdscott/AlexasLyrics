@@ -31,6 +31,13 @@ class Application(Frame):
         self.lyricButton = Button(bottom, width=20, text="Guess", command=self.make_guess)
         self.lyricButton.pack(side=RIGHT)
 
+        self.QUIT = Button(self)
+        self.QUIT["text"] = "QUIT"
+        self.QUIT["fg"]   = "red"
+        self.QUIT["command"] =  self.quit
+
+        self.QUIT.pack({"side": "left"})
+        
         # Bind enter button to make a guess
         root.bind('<Return>', self.press_enter)
 
