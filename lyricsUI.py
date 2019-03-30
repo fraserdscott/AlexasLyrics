@@ -1,5 +1,3 @@
-import pylyrics3
-import random
 from tkinter import *
 from my_lyrics import get_popular_song
 
@@ -12,7 +10,7 @@ class Application(Frame):
             self.pack()
             self.create_widgets()
 
-            self.newSong()
+            self.new_song()
             
     # Create the UI elements: buttons, lists etc.
     def create_widgets(self):
@@ -30,35 +28,34 @@ class Application(Frame):
         self.entry = Entry(bottom, width=80)
         self.entry.pack(side = LEFT)
 
-        self.lyricButton = Button(bottom, width=20, text = "Guess", command = self.makeGuess)
+        self.lyricButton = Button(bottom, width=20, text = "Guess", command = self.make_guess)
         self.lyricButton.pack(side = RIGHT)
 
         # Bind enter button to make a guess
-        root.bind('<Return>', self.pressEnter)
-
+        root.bind('<Return>', self.press_enter)
 
     # Handles pressing enter key instead of pressing button every time
-    def pressEnter(self,event):
-        self.makeGuess()
+    def press_enter(self, event):
+        self.make_guess()
 
     # Handles checking if the users guess is right or wrong
-    def makeGuess(self):
+    def make_guess(self):
         
         # If the user has guessed right then give them a new song to guess
         if self.entry.get().lower() == self.title.lower():
-            self.newSong()
+            self.new_song()
             return
 
         # Otherwise the user has guessed wrong 
         self.lineNumber += 1
         if self.lineNumber==len(self.lyrics):
-            self.newSong()
+            self.new_song()
             
         self.lyricsBox.insert(END, self.lyrics[self.lineNumber]) # Show user next line of the song
         self.entry.delete(0, END) # Clear text input field
             
     # Reset UI and get a new song
-    def newSong(self):
+    def new_song(self):
         # Clear the UI
         self.lyricsBox.delete(0,END)
         self.entry.delete(0,END)
