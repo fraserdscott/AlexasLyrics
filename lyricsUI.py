@@ -17,7 +17,7 @@ class Application(Frame):
     def create_widgets(self):
 
         self.title = Label(self, text="Lyrics Puzzler", fg="blue", font=("Helvetica", 16))
-        self.title.pack(side = TOP)
+        self.title.pack(side=TOP)
 
         self.lyricsBox = Listbox(self, width=100)
         self.lyricsBox.pack(fill=X, expand=1)
@@ -35,25 +35,17 @@ class Application(Frame):
         self.speak_button = Button(bottom, width=20, text="Speak", command = self.speak_lyric)
         self.speak_button.pack(side = RIGHT)
 
-
-        self.QUIT = Button(self)
-        self.QUIT["text"] = "QUIT"
-        self.QUIT["fg"]   = "red"
-        self.QUIT["command"] =  self.quit
-
+        self.QUIT = Button(self, text="QUIT", fg="red", command=self.quit)
         self.QUIT.pack({"side": "left"})
         
         # Bind enter button to make a guess
         root.bind('<Return>', self.press_enter)
-        
     
     def speak_lyric(self):
-        engine = pyttsx3.init();
+        engine = pyttsx3.init()
         speak_string = self.lyrics[self.lineNumber]
-        engine.say(speak_string);
-        engine.runAndWait() ;
-        
-        
+        engine.say(speak_string)
+        engine.runAndWait()
 
     # Handles pressing enter key instead of pressing button every time
     def press_enter(self, event):
