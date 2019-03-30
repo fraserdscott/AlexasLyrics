@@ -3,11 +3,10 @@ import random
 from tkinter import *
 from my_lyrics import get_popular_song
 
-def lyricsUI():
-    
-    class Application(Frame):
 
-        def __init__(self, master=None):
+class Application(Frame):
+
+    def __init__(self, master=None):
             super().__init__(master)
             self.master = master
             self.pack()
@@ -15,56 +14,63 @@ def lyricsUI():
 
             self.newSong()
             
-        def create_widgets(self):
-                        
-            top = Frame(root)
-            bottom = Frame(root)
-            top.pack(side=TOP)
-            bottom.pack(fill=BOTH, expand=True)
+    # Create the UI elements: buttons, lists etc.
+    def create_widgets(self):
+
+        self.title = Label(self, text="Lyrics Puzzler", fg="blue", font=("Helvetica", 16))
+        self.title.pack(side = TOP)
+
+        self.lyricsBox = Listbox(self, width=100)
+        self.lyricsBox.pack(fill=X, expand=1)
+
+        # Create frame to store input field and button side by side
+        bottom = Frame(root)
+        bottom.pack(fill=BOTH, expand=True)
             
-            self.title = Label(self, text="Lyrics Puzzler", fg="blue", font=("Helvetica", 16))
-            self.title.pack(side = TOP)
-                        
-            self.listbox = Listbox(self, width=100)
-            self.listbox.pack(fill=X, expand=1)
+        self.entry = Entry(bottom, width=80)
+        self.entry.pack(side = LEFT)
 
-            self.entry = Entry(bottom, width=80)
-            self.entry.pack(side = LEFT)
+        self.lyricButton = Button(bottom, width=20, text = "Guess", command = self.makeGuess)
+        self.lyricButton.pack(side = RIGHT)
 
-            self.lyricButton = Button(bottom, width=20, text = "Guess", command = self.makeGuess)
-            self.lyricButton.pack(side = RIGHT)
-
-            root.bind('<Return>', self.pressEnter)
+        # Bind enter button to make a guess
+        root.bind('<Return>', self.pressEnter)
 
 
-        # Handles pressing enter key instead of pressing button every time
-        def pressEnter(self,event):
-            self.makeGuess()
+    # Handles pressing enter key instead of pressing button every time
+    def pressEnter(self,event):
+        self.makeGuess()
 
+    # Handles checking if the users guess is right or wrong
+    def makeGuess(self):
+        
+        # If the user has guessed right then give them a new song to guess
+        if self.entry.get().lower() == self.title.lower():
+            self.newSong()
+            return
 
-        def makeGuess(self):
+        # Otherwise the user has guessed wrong 
+        self.lineNumber += 1
+        if self.lineNumber==len(self.lyrics):
+            self.newSong()
             
-            if self.entry.get().lower() == self.title.lower():
-                self.newSong()
-                return
+        self.lyricsBox.insert(END, self.lyrics[self.lineNumber]) # Show user next line of the song
+        self.entry.delete(0, END) # Clear text input field
             
-            self.i += 1
-            self.listbox.insert(END, self.lyrics[self.i])
-            self.entry.delete(0, END)
-            
-        # Reset UI and get a new song
-        def newSong(self):
-            self.listbox.delete(0,END)
-            self.entry.delete(0,END)
-            
-            self.lyrics, self.artist, self.title = get_popular_song()
-            print(self.title)
+    # Reset UI and get a new song
+    def newSong(self):
+        # Clear the UI
+        self.lyricsBox.delete(0,END)
+        self.entry.delete(0,END)
+        
+        # Get a new song
+        self.lyrics, self.artist, self.title = get_popular_song()
+        print(self.title)
+        self.lineNumber = 0
 
-            self.i = 0
-
-            self.listbox.insert(END, self.lyrics[self.i])
+        self.lyricsBox.insert(END, self.lyrics[self.lineNumber])
             
             
-    root = Tk()
-    app = Application(master=root)
-    app.mainloop()
+root = Tk()
+app = Application(master=root)
+app.mainloop()
