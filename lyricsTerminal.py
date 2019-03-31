@@ -1,14 +1,8 @@
 import pylyrics3
 import random
-import tkinter
-from tkinter import *
+from my_lyrics import get_popular_song
 
-songs = [('Smash Mouth','All Star'),
-         ('Oasis','Wonderwall'),
-         ('John Lennon','Imagine'),
-         ('Eminem','Lose Yourself')]
 
-    
 def getRandomSong():
     # Pick a random song
     song = random.choice(songs)
@@ -23,12 +17,13 @@ def getRandomSong():
 
 
 def lyricsTerminal():
+
     # Lyric guessing game to run on python terminal
     
     while True:
 
-        artist, title, lyrics = getRandomSong()
-        
+        lyrics, artist, title = get_popular_song()
+
         print("____Lyrics Puzzler____")
         # Cycle through lines in song
         for i in range(len(lyrics)):
@@ -43,3 +38,5 @@ def lyricsTerminal():
 
         print("\nWell done! The song was " + title + " by " + artist + ".")
         print("You only needed " + str(i+1) + " lines of the song to guess correctly!\n\n")
+
+lyricsTerminal()

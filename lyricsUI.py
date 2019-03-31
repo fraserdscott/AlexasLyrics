@@ -26,13 +26,13 @@ class Application(Frame):
         bottom = Frame(root)
         bottom.pack(fill=BOTH, expand=True)
             
-        self.entry = Entry(bottom, width=80)
+        self.entry = Entry(bottom, width=60)
         self.entry.pack(side=LEFT)
 
-        self.lyricButton = Button(bottom, width=20, text = "Guess", command = self.make_guess)
+        self.lyricButton = Button(bottom, width=20, text = "Guess", command=self.make_guess)
         self.lyricButton.pack(side = RIGHT)
         
-        self.speak_button = Button(bottom, width=20, text="Speak", command = self.speak_lyric)
+        self.speak_button = Button(bottom, width=20, text="Speak", command=self.speak_lyric)
         self.speak_button.pack(side = RIGHT)
 
         self.QUIT = Button(self, text="QUIT", fg="red", command=self.quit)
@@ -66,7 +66,7 @@ class Application(Frame):
             
         self.lyricsBox.insert(END, self.lyrics[self.lineNumber]) # Show user next line of the song
         self.entry.delete(0, END) # Clear text input field
-    
+
     # Reset UI and get a new song
     def new_song(self):
         # Clear the UI
