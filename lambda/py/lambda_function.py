@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# This is a Color Picker Alexa Skill.
-# The skill serves as a simple sample on how to use  
-# session attributes.
+# This is a Lyric guessing game Alexa Skill.
 
 import logging
 
@@ -14,9 +12,9 @@ from ask_sdk_model.ui import SimpleCard
 from my_lyrics import *
 
 
-skill_name = "Alexa lyrics"
+skill_name = "Lyric Puzzler"
 
-help_text = ("Please tell me the name of the song.")
+help_text = "Please tell me the name of the song."
 # song_slot_key = "SONG"
 # song_slot = "Song"
 
@@ -28,32 +26,36 @@ sb = SkillBuilder()
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
-def get_two_lines(l):
 
-    lines = l[0] + l[1]
-    #index += 2
-    return lines
+def get_line(l):
+
+    line = l[index]
+    #index += 1
+    return line
+
 
 @sb.request_handler(can_handle_func=is_request_type("LaunchRequest"))
 def launch_request_handler(handler_input):
     """Handler for Skill Launch."""
     # type: (HandlerInput) -> Response
-    speech = "Welcome to the Alexa Lyrics. Here is the first line of the song:"
-    lines = get_two_lines(l)
+    speech = "Lyric Puzzler! Guess the name of the song. You can ask for a hint. Here is the first line of the song:"
+    line = get_line(l)
 
-    handler_input.response_builder.speak(speech + " "+ lines +" "+ help_text).ask(help_text)
+    handler_input.response_builder.speak(speech + " " + line).ask(help_text)
     return handler_input.response_builder.response
+    
 
-@sb.request_handler(can_handle_func=is_intent_name("QuizIntent"))
-def quiz_intent_handler(handler_input):
+@sb.request_handler(can_handle_func=is_request_type("QuitIntent"))
+def launch_request_handler(handler_input):
+    """Handler for Skill Launch."""
     # type: (HandlerInput) -> Response
-    speech = "Welcome to the Alexa Lyrics. Here is the first line of the song:"
-    lines = get_two_lines(l)
+    speech = "Booooooo"
 
-    handler_input.response_builder.speak(speech + " "+ lines +" "+ help_text).ask(help_text)
+    handler_input.response_builder.speak(speech).ask(help_text)
+    handler_input.response_builder.set_should_end_session(True)
     return handler_input.response_builder.response
-
-
+    
+    
 @sb.request_handler(can_handle_func=is_intent_name("AMAZON.HelpIntent"))
 def help_intent_handler(handler_input):
     """Handler for Help Intent."""
@@ -87,11 +89,12 @@ def answer_intent_handler(handler_input):
     guess_song = handler_input.request_envelope.request.intent.slots["Song"]
     #guess_musician = handler_input.request_envelope.request.intent.slots["Musician"]
 
-    if s.lower().find(guess_song.value):
-        speech = "That is correct. The name of the song is {}. Goodbye!!".format(s)
+    if s.lower() == guess_song.value:
+        speech = "That is correct. The name of the song is {} by {}. Goodbye!!".format(s,a)
+        
         handler_input.response_builder.set_should_end_session(True)
     else:
-        speech = "Sorry that is incorrect. Would you like to try again?"+" "+ help_text
+        speech = "Sorry that is incorrect. Would you like to try again? "
         handler_input.response_builder.ask(help_text)
 
     handler_input.response_builder.speak(speech)
@@ -101,8 +104,8 @@ def answer_intent_handler(handler_input):
 @sb.request_handler(can_handle_func=is_intent_name("HintIntent"))
 def my_color_handler(handler_input):
 
-    next_line = get_two_lines(l)
-    speech = "The next line is: "+ next_line +help_text
+    next_line = get_line(l)
+    speech = "The next line is: "+ next_line
 
     handler_input.response_builder.speak(speech)
     return handler_input.response_builder.response
@@ -115,7 +118,7 @@ def fallback_handler(handler_input):
     so it is safe to deploy on any locale.
     """
     # type: (HandlerInput) -> Response
-    line = get_two_lines(l)
+    line = get_line(l)
     speech = ("The {} skill can't help you with that.".format(skill_name))
     reprompt = ("Would you like to guess a song? Here is the first line:"+line+" "+help_text)
     handler_input.response_builder.speak(speech).ask(reprompt)

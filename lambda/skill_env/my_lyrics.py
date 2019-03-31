@@ -33,10 +33,3 @@ def get_popular_song():
         formatted_lyrics.append(lyric.strip())
 
     return formatted_lyrics, artist, song
-
-
-l, a, s = get_popular_song()
-print(l)
-
-
-

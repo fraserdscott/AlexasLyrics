@@ -1,1 +1,4 @@
 ask-sdk-core
+pylyrics3
+requests
+bs4
