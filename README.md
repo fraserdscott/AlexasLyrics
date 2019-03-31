@@ -23,5 +23,5 @@ To zip all our code with its packages, download this repository then do the foll
     4. On the AWS Lambda console, change the **code entry type** drop-down to **Upload a .ZIP file**, upload the zip created in the previous step and click on **Save**.
    
    
-
+For further instructions check https://github.com/alexa/skill-sample-python-colorpicker/blob/master/instructions/2-lambda-function.md
 Most popular songs from 2000 - 2019 https://chart2000.com/about.htm
