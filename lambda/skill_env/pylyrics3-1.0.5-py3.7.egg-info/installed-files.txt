@@ -1,0 +1,7 @@
+..\__pycache__\pylyrics3.cpython-37.pyc
+..\pylyrics3.py
+PKG-INFO
+SOURCES.txt
+dependency_links.txt
+requires.txt
+top_level.txt
